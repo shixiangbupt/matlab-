@@ -1,0 +1,19 @@
+x = sdpvar(1, 2)
+C = [
+x(1)^2 + x(2)^2 == 2
+1/4*x(1)^2 +3/4*x(2)^2 <= 1
+0 <= x(1)<= 4
+0 <= x(2) <= 4
+];
+ops = sdpsettings('verbose',0,'solver','gurobi'); 
+z=x(1)^4 - 2*x(1)*x(1)*x(2) + x(1)*x(1) + x(1)*x(1)*x(2) - 2*x(1) + 4
+reuslt = optimize(C,z); 
+%if reuslt.problem == 0 % problem =0 代表求解成功
+ value(x) 
+value(z) 
+————————————————————
+%Minimize	f(x1,x2) = x1^4 - 2*x1*x1*x2 + x1*x1 + x1*x2*x2 - 2*x1 + 4
+          %
+          %	S.t. h(x1,x2) = x1^2 + x2^2 = 2            (nonlinear equality constraint)
+          %        g(x1,x2) = 1/4*x1^2 +3/4*x2^2 <= 1  (nonlinear inequality constraint)
+          %        0 <= x1 <= 4;  0 <= x2 <= 4         (box constraints)
